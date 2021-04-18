@@ -1,38 +1,57 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Aleo&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Aleo", serif;
+  background-color: #1a1a1c;
+  color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.heading {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-around;
+  margin: 40px;
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.inputField {
+  padding-left: 16px;
+  font-size: 14px;
+  width: 260px;
+  height: 42px;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 3pt 2pt white;
+  color: #e2e2e2;
+}
+
+.cryptoContainer {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 520px) {
+  .heading {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  to {
-    transform: rotate(360deg);
+
+  .logo h1 {
+    padding-bottom: 16px;
+  }
+
+  .inputField {
+    width: 220px;
+    height: 38px;
   }
 }
