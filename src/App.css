@@ -39,6 +39,21 @@
   color: #fff;
 }
 
+.coin-section {
+  display: flex;
+  justify-content: center;
+}
+
+.coin-heading {
+  font-size: 40px;
+  margin-left: 10px;
+}
+
+.coin-logo {
+  height: 50px;
+  width: 50px;
+}
+
 @media (max-width: 520px) {
   .heading {
     flex-direction: column;

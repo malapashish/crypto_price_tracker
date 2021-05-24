@@ -19,7 +19,15 @@ const Home = ({inputCrypto , inputHandler , filterCrypto}) => {
             <div className = 'cryptoContainer'>
                 {
                     filterCrypto.map((crypto) =>
-                        <Link to = {'/details/' + crypto.id} key = {crypto.id} style = {{ textDecoration : 'none' }} >
+                        <Link 
+                        to = {{
+                            pathname : '/details/' + crypto.id,
+                            state : {
+                                crypto : crypto
+                            }
+                        }} 
+                        key = {crypto.id}
+                        style = {{ textDecoration : 'none' }} >
                             <CryptoCard 
                             key = {crypto.id}
                             name = {crypto.name}
