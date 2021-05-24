@@ -1,8 +1,9 @@
 import React, { useEffect ,  useState } from 'react';
-
 import axios from 'axios';
+import { Route , Switch } from 'react-router-dom'
 
-import CryptoCard from './components/CryptoCard';
+import Home from './Pages/Home';
+import Details from './Pages/Details';
 
 const App = () => {
 
@@ -27,34 +28,11 @@ const App = () => {
     const filterCrypto = cryptoList.filter((crypto) => crypto.name.toLowerCase().includes(inputCrypto.toLowerCase()) )
 
     return(
-        <div>
-            <div className = 'heading'>
-                <div className = 'logo' >
-                    <i className="fas fa-search-dollar"></i>
-                      CryptoTracker
-                </div>
-                <form>
-                    <input className = 'inputField' type = 'text' placeholder = 'Search' value = {inputCrypto} onChange = {inputHandler} />
-                </form>
-            </div>
-            <div className = 'cryptoContainer'>
-                {
-                    filterCrypto.map((crypto) => 
-                        <CryptoCard 
-                        key = {crypto.id}
-                        name = {crypto.name}
-                        price = {crypto.current_price}
-                        symbol = {crypto.symbol}
-                        marketCap = {crypto.market_cap}
-                        volume = {crypto.total_volume}
-                        image = {crypto.image}
-                        priceChange = {crypto.price_change_percentage_24h}
-                        />
-
-                    )
-                }
-            </div>
-        </div>
+        // <Home  inputHandler = {inputHandler} inputCrypto = {inputCrypto} filterCrypto = {filterCrypto} />
+        <Switch>
+            <Route exact path = '/' render = {() => <Home  inputHandler = {inputHandler} inputCrypto = {inputCrypto} filterCrypto = {filterCrypto} />} />
+            <Route path = '/details/:id' component = {Details} />
+        </Switch>
     )
 }
 
