@@ -41,17 +41,19 @@
 }
 
 .inputField {
-  padding-left: 16px;
-  font-size: 14px;
-  width: 260px;
-  height: 42px;
-  border-radius: 4px;
-  border: none;
-  /* box-shadow: 0 0 3pt 2pt white; */
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 3px solid #555;
+  box-sizing: border-box;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-radius: 10px;
+  outline: none;
 }
 
-.inputField:focus {
-  box-shadow: 0 0 3pt 2pt white;
+input[type="text"]:focus {
+  border: 3px solid #ccc;
 }
 
 .cryptoContainer {
