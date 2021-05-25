@@ -54,6 +54,16 @@
   width: 50px;
 }
 
+.chart-container {
+  text-align: center;
+}
+
+.chart-heading {
+  font-size: 20px;
+  margin: 10px 10px;
+  display: block;
+}
+
 @media (max-width: 520px) {
   .heading {
     flex-direction: column;

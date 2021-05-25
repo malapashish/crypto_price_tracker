@@ -5,43 +5,55 @@ import axios from 'axios';
 
 const Details = (props) => {
 
-    const [ charData , setCharData ] = useState({});
-    const [ charOptions , setCharOptions ] = useState({});
-    const [ timeData , setTimeData ] = useState([]);
-    const [ PriceData , setPriceData ] = useState([]);
+    const [ priceChartData , setPriceChartData ] = useState({});
+    const [ marketCapChartData , setMarketCapChartData ] = useState({});
  
     const Name = props.match.params.id;
     const Image = props.location.state.crypto.image;
 
 
     const getDate = (uni) => {
-        var dateObj = new Date();
+        var dateObj = new Date(uni);
+        var currentDate = new Date();
         var month = dateObj.getUTCMonth() + 1; //months from 1-12
         var day = dateObj.getUTCDate();
         var year = dateObj.getUTCFullYear();
-
+        var hours = dateObj.getHours();
+        var mintues = dateObj.getMinutes();
+        if(currentDate.getDate() === dateObj.getDate()){
+            return hours + ':' + mintues;
+        }
         const newdate = year + "/" + month + "/" + day;
         return newdate
     }
 
-    const chart = () => {
-        let coinTime = [];
-        let coinPrice = [];
+    const PriceChart = () => {
+        let coinPriceValueTime = [];
+        let coinPriceValue = [];
+        let coinMarketCapTime = [];
+        let coinMarketCap = [];
 
-        axios
-            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart/range?vs_currency=inr&from=1619268023&to=1621860023`)
+        axios 
+            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=5&interval=10`) 
             .then((response) => {
                 console.log(response);
                 for(const info of response.data.prices){
-                    coinTime.push(getDate(info[0]));
-                    coinPrice.push(info[1])
+                    coinPriceValueTime.push(getDate(info[0]));
+                    coinPriceValue.push(info[1])
                 }
-                setCharData({
-                labels : coinTime,
+
+                for( const info of response.data.market_caps){
+                    coinMarketCapTime.push(getDate(info[0]));
+                    coinMarketCap.push(info[1]);
+                }
+
+
+                setPriceChartData({
+                labels : coinPriceValueTime,
                 datasets: [
                     {
-                    label: "level of thiccness",
-                    data: coinPrice, 
+                    label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+                    data: coinPriceValue, 
                     fill: false,
                     borderColor: '#2196f3', // Add custom color border (Line)
                     backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
@@ -49,21 +61,33 @@ const Details = (props) => {
                     }
                 ]
             })
+
+                setMarketCapChartData({
+                   labels : coinMarketCapTime,
+                    datasets: [
+                        {
+                        label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+                        data: coinMarketCap, 
+                        fill: false,
+                        borderColor: '#2196f3', // Add custom color border (Line)
+                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        borderWidth: 1 
+                        }
+                    ] 
+                })
+
             })
+             
+
             
-            setCharOptions({
-                scales: {
-              xAxes: [{gridLines: { color: "#2196f3" }}],
-              yAxes: [{gridLines: { color: "#131c2b" }}]
-              }
-            })
-
         }
-
     
+    const handleButtonClick = (val) => {
+        console.log(val);
+    }
 
     useEffect(() => {
-        chart();
+        PriceChart();
     },[])
 
 
@@ -83,9 +107,12 @@ const Details = (props) => {
                     {Name.charAt(0).toUpperCase() + Name.slice(1)}
                 </span>
             </div>
-            <Line data = {charData} 
-              options= {charOptions}
-            />
+            <div className = 'chart-container'>
+            <span  className = 'chart-heading'>
+                Price 
+            </span>
+            <Line data = {priceChartData} height = {30} width = {150} /> 
+            </div>
         </div>
     )
 }
