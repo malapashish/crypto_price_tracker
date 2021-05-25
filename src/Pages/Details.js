@@ -7,7 +7,10 @@ const Details = (props) => {
 
     const [ priceChartData , setPriceChartData ] = useState({});
     const [ marketCapChartData , setMarketCapChartData ] = useState({});
- 
+    const [ chartType , setChartType ] = useState(true);
+    const [ buttonType , setButtonType ] = useState(45);
+    const [ timeInterval , setTimeInterval ] = useState(45)
+
     const Name = props.match.params.id;
     const Image = props.location.state.crypto.image;
 
@@ -34,7 +37,7 @@ const Details = (props) => {
         let coinMarketCap = [];
 
         axios 
-            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=5&interval=10`) 
+            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=1`) 
             .then((response) => {
                 console.log(response);
                 for(const info of response.data.prices){
@@ -46,21 +49,22 @@ const Details = (props) => {
                     coinMarketCapTime.push(getDate(info[0]));
                     coinMarketCap.push(info[1]);
                 }
-
-
-                setPriceChartData({
-                labels : coinPriceValueTime,
-                datasets: [
-                    {
-                    label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
-                    data: coinPriceValue, 
-                    fill: false,
-                    borderColor: '#2196f3', // Add custom color border (Line)
-                    backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                    borderWidth: 1 
-                    }
-                ]
-            })
+ 
+                    setPriceChartData({
+                    labels :  coinPriceValueTime,
+                    datasets: [
+                        {
+                        label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+                        data: coinPriceValue, 
+                        fill: false,
+                        borderColor: '#2196f3', // Add custom color border (Line)
+                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        borderWidth: 0.5
+                        }
+                    ]
+                    })  
+ 
+ 
 
                 setMarketCapChartData({
                    labels : coinMarketCapTime,
@@ -82,14 +86,25 @@ const Details = (props) => {
             
         }
     
-    const handleButtonClick = (val) => {
-        console.log(val);
-    }
+    
 
     useEffect(() => {
         PriceChart();
-    },[])
+    },[timeInterval])
 
+    const buttonClick = (num) => {
+        setButtonType(num);
+        setTimeInterval(num);
+        console.log(timeInterval);
+    }
+
+    const changeChartType = (val) => {
+        if(val === 'Price' || val === ''){
+            setChartType(true);
+        }else{
+            setChartType(false);
+        }
+    }
 
     return(
         <div>
@@ -97,7 +112,9 @@ const Details = (props) => {
                 <div className = 'logo' >
                     <Link to = '/' style = {{textDecoration : 'none'}} >
                     <i className="fas fa-search-dollar"></i>
-                      CryptoTracker
+                      <span style = {{ textDecoration : 'none' }} >
+                        CryptoTracker   
+                      </span> 
                     </Link>
                 </div> 
             </div> 
@@ -106,12 +123,91 @@ const Details = (props) => {
                 <span className = 'coin-heading'>
                     {Name.charAt(0).toUpperCase() + Name.slice(1)}
                 </span>
-            </div>
+            </div> 
             <div className = 'chart-container'>
-            <span  className = 'chart-heading'>
-                Price 
-            </span>
-            <Line data = {priceChartData} height = {30} width = {150} /> 
+                <button type = 'button' className = {`button ${chartType ? "active" : ""}`} onClick = {() => changeChartType('Price')} >Price</button> {'  '}
+                <button type = 'button' className = {`button ${!chartType ? "active" : ""}` } onClick = {() => changeChartType('MarketCap')}  >Market Cap</button>
+            <div  className = 'chart-heading'>
+                { chartType ? 'Price' : 'Marktet_Cap' }
+                <br/>
+                <button type="button" className={ `button ${buttonType === 5 ? "active" : ""}`} onClick = {() => buttonClick(5)}>5</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 10 ? "active" : ""}`} onClick = {() => buttonClick(10)}>10</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 20 ? "active" : ""}`} onClick = {() => buttonClick(20)}>20</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 50 ? "active" : ""}`} onClick = {() => buttonClick(50)}>50</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 90 ? "active" : ""}`} onClick = {() => buttonClick(90)}>90</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 365 ? "active" : ""}`} onClick = {() => buttonClick(365)}>365</button>{'   '}
+                <br /> 
+                <span className = 'invterval-heading'>Data up to  </span>
+                {
+                    buttonType === 45 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 5 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 10 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 20 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 50 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 90 && <span className = 'invterval-heading'> {buttonType} </span>
+                }
+                {
+                    buttonType === 365 && <span className = 'invterval-heading'> {buttonType} </span>
+                } 
+                <span className = 'invterval-heading'>of days ago</span>
+            </div>
+            <Line data = {chartType ? priceChartData : marketCapChartData} height = {30} width = {150} 
+             options={{
+            responsive: true, 
+            scales: { 
+              y : {
+                  ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10,
+                    beginAtZero: true,
+                    callback: function(label, index, labels) {
+                        return '₹'+label;
+                    } 
+                  },
+                  gridLines: {
+                    display: false
+                  },
+                  title : {
+                      display: true,
+                    text: 'Price',
+                    color: '#2196f3',
+                     font: { 
+                        size: 10,
+                        style: 'bold',
+                        lineHeight: 1.2,
+                    }
+                  }  
+                }
+              ,
+              x : {
+                  gridLines: {
+                    display: false
+                  },
+                  title : {
+                      display: true,
+                    text: `Time`,
+                    color: '#2196f3',
+                     font: { 
+                        size: 10,
+                        style: 'bold',
+                        lineHeight: 1.2,
+                    }
+                  } 
+                }
+              
+            }
+          }}
+            /> 
             </div>
         </div>
     )
