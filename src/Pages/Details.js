@@ -213,7 +213,7 @@ const Details = (props) => {
                 } 
                 <span className = 'invterval-heading'>of days ago</span>
             </div>
-            <Line data = {chartType ? priceChartData : marketCapChartData} height = {30} width = {150} 
+            <Line data = {chartType ? priceChartData : marketCapChartData}
              options={{
             responsive: true, 
             scales: { 
