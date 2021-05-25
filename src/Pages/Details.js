@@ -188,6 +188,7 @@ const Details = (props) => {
                 <button type="button" className={ `button ${buttonType === 50 ? "active" : ""}`} onClick = {() => buttonClick(50)}>50</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 90 ? "active" : ""}`} onClick = {() => buttonClick(90)}>90</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 365 ? "active" : ""}`} onClick = {() => buttonClick(365)}>365</button>{'   '}
+                <button type="button" className={ `button ${buttonType === 11430 ? "active" : ""}`} onClick = {() => buttonClick(11430)}>MAX</button>{'   '}
                 <br /> 
                 <span className = 'invterval-heading'>Data up to  </span>
                 {
@@ -210,6 +211,9 @@ const Details = (props) => {
                 }
                 {
                     buttonType === 365 && <span className = 'invterval-heading'> {buttonType} </span>
+                } 
+                {
+                    buttonType === 11430 && <span className = 'invterval-heading'> {buttonType} </span>
                 } 
                 <span className = 'invterval-heading'>of days ago</span>
             </div>
