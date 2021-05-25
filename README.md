@@ -18,11 +18,19 @@ The web application is a crypto currency tracking app which show market captial,
 ## Screenshots
 
 Home Page
+<br/>
+<br/>
 The home page shows market capital along with volume in market for each indivisual currency. Also a search field is also provided to search for a cryptocurrency. The card UI also shows if the price has gone up or down in percentage.
+<br/>
+<br/>
 ![Home Page](images/Home.PNG)
 
 Details Page
+<br/>
+<br/>
 This page trends for a crypto currency is graphical form. App also provides option for user to select from price or volume graph. Also user can select how old data they want to see. The range is from 5 days to 10+ years. For drawing charts chart.js is used.
+<br/>
+<br/>
 ![Favourite_Page](images/Details.PNG)
 
 ## Technologies
