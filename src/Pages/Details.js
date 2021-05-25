@@ -238,7 +238,7 @@ const Details = (props) => {
                     text: 'Price',
                     color: '#2196f3',
                      font: { 
-                        size: 10,
+                        size: 20,
                         style: 'bold',
                         lineHeight: 1.2,
                     }
@@ -254,7 +254,7 @@ const Details = (props) => {
                     text: `Time`,
                     color: '#2196f3',
                      font: { 
-                        size: 10,
+                        size: 20,
                         style: 'bold',
                         lineHeight: 1.2,
                     }
