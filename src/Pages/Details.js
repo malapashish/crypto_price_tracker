@@ -30,7 +30,66 @@ const Details = (props) => {
         return newdate
     }
 
-    const PriceChart = () => {
+    // const PriceChart = () => {
+    //     let coinPriceValueTime = [];
+    //     let coinPriceValue = [];
+    //     let coinMarketCapTime = [];
+    //     let coinMarketCap = [];
+
+    //     axios 
+    //         .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=1`) 
+    //         .then((response) => {
+    //             console.log(response);
+    //             for(const info of response.data.prices){
+    //                 coinPriceValueTime.push(getDate(info[0]));
+    //                 coinPriceValue.push(info[1])
+    //             }
+
+    //             for( const info of response.data.market_caps){
+    //                 coinMarketCapTime.push(getDate(info[0]));
+    //                 coinMarketCap.push(info[1]);
+    //             }
+ 
+    //                 setPriceChartData({
+    //                 labels :  coinPriceValueTime,
+    //                 datasets: [
+    //                     {
+    //                     label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+    //                     data: coinPriceValue, 
+    //                     fill: false,
+    //                     borderColor: '#2196f3', // Add custom color border (Line)
+    //                     backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+    //                     borderWidth: 0.5
+    //                     }
+    //                 ]
+    //                 })  
+ 
+ 
+
+    //             setMarketCapChartData({
+    //                labels : coinMarketCapTime,
+    //                 datasets: [
+    //                     {
+    //                     label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+    //                     data: coinMarketCap, 
+    //                     fill: false,
+    //                     borderColor: '#2196f3', // Add custom color border (Line)
+    //                     backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+    //                     borderWidth: 1 
+    //                     }
+    //                 ] 
+    //             })
+
+    //         })
+             
+
+            
+    //     }
+    
+    
+
+    useEffect(() => {
+        // PriceChart();
         let coinPriceValueTime = [];
         let coinPriceValue = [];
         let coinMarketCapTime = [];
@@ -83,14 +142,7 @@ const Details = (props) => {
             })
              
 
-            
-        }
-    
-    
-
-    useEffect(() => {
-        PriceChart();
-    },[timeInterval])
+    },[timeInterval , Name])
 
     const buttonClick = (num) => {
         setButtonType(num);
