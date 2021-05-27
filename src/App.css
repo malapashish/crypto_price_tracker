@@ -97,9 +97,9 @@ input[type="text"]:focus {
 .chart {
   /* width: 600px; */
   border-radius: 20px;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-around; */
   /* position: relative; */
 }
 
@@ -109,11 +109,15 @@ input[type="text"]:focus {
   padding: 10px;
   margin: auto;
   display: inline-block;
-  width: 600px;
+  width: 750px;
   border-radius: 20px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
   margin-top: 10px;
+  /* padding: 0;
+  margin: auto;
+  display: block;
+  width: 800px; */
   /* position: absolute; */
 }
 

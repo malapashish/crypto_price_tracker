@@ -8,7 +8,8 @@ const Details = (props) => {
     const [ priceChartData , setPriceChartData ] = useState({});
     const [ marketCapChartData , setMarketCapChartData ] = useState({}); 
     const [ buttonType , setButtonType ] = useState(45);
-    const [ timeInterval , setTimeInterval ] = useState(45)
+    const [ timeInterval , setTimeInterval ] = useState(45);
+    const [ chartType , setChartType ] = useState(true);
 
     const Name = props.match.params.id;
     const Image = props.location.state.crypto.image;
@@ -95,6 +96,13 @@ const Details = (props) => {
         console.log(timeInterval);
     }
  
+    const changeChartType = (val) => {
+        if(val === 'Price' || val === ''){
+            setChartType(true);
+        }else{
+            setChartType(false);
+        }
+    }
 
     const chartOptions = {
             responsive: true,
@@ -180,6 +188,9 @@ const Details = (props) => {
             </div> 
             <div className = 'chart-container'> 
             <div  className = 'chart-heading'>  
+                <button type = 'button' className = {`button ${chartType ? "active" : ""}`} onClick = {() => changeChartType('Price')} >Price</button> {'  '}
+                <button type = 'button' className = {`button ${!chartType ? "active" : ""}` } onClick = {() => changeChartType('MarketCap')}  >Market Cap</button>
+                <br />
                 <button type="button" className={ `button ${buttonType === 5 ? "active" : ""}`} onClick = {() => buttonClick(5)}>5</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 10 ? "active" : ""}`} onClick = {() => buttonClick(10)}>10</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 20 ? "active" : ""}`} onClick = {() => buttonClick(20)}>20</button>{'   '}
@@ -215,20 +226,12 @@ const Details = (props) => {
                 } 
                 <span className = 'invterval-heading'>of days ago</span>
             </div>
-            <div className = 'chart'>
-            <div>
-               <span style = {{ fontSize : '30px' , marginBottom : '20px' }}>
-                   Price
-                </span> 
-            <Line data = {priceChartData} options={chartOptions}/> 
-            </div>
-            <div>
-                <span style = {{ fontSize : '30px' , marginBottom : '20px' }}>
-                Market Capital
-                </span>
-            <Line data = {marketCapChartData} options = {chartOptions} />
-            </div>
-            </div>
+            <div className = 'chart'> 
+            <Line 
+            data = { chartType ? priceChartData : marketCapChartData } 
+            options = {chartOptions}
+            />
+            </div> 
             </div>
         </div>
     )
