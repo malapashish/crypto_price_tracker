@@ -6,8 +6,7 @@ import axios from 'axios';
 const Details = (props) => {
 
     const [ priceChartData , setPriceChartData ] = useState({});
-    const [ marketCapChartData , setMarketCapChartData ] = useState({});
-    const [ chartType , setChartType ] = useState(true);
+    const [ marketCapChartData , setMarketCapChartData ] = useState({}); 
     const [ buttonType , setButtonType ] = useState(45);
     const [ timeInterval , setTimeInterval ] = useState(45)
 
@@ -15,78 +14,22 @@ const Details = (props) => {
     const Image = props.location.state.crypto.image;
 
 
-    const getDate = (uni) => {
-        var dateObj = new Date(uni);
-        var currentDate = new Date();
-        var month = dateObj.getUTCMonth() + 1; //months from 1-12
-        var day = dateObj.getUTCDate();
-        var year = dateObj.getUTCFullYear();
-        var hours = dateObj.getHours();
-        var mintues = dateObj.getMinutes();
-        if(currentDate.getDate() === dateObj.getDate()){
-            return hours + ':' + mintues;
-        }
-        const newdate = year + "/" + month + "/" + day;
-        return newdate
+    // const getDate = (uni) => {
+    //     var dateObj = new Date(uni);
+    //     var currentDate = new Date();
+    //     var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    //     var day = dateObj.getUTCDate();
+    //     var year = dateObj.getUTCFullYear();
+    //     var hours = dateObj.getHours();
+    //     var mintues = dateObj.getMinutes();
+    //     const newdate = year + "/" + month + "/" + day;
+    //     return newdate
+    // }
+
+    function convertTimestamp(timestamp) {
+         var d = new Date(timestamp);
+         return `${d.getDate()}/${d.getMonth()}/${d.getUTCFullYear()}`;
     }
-
-    // const PriceChart = () => {
-    //     let coinPriceValueTime = [];
-    //     let coinPriceValue = [];
-    //     let coinMarketCapTime = [];
-    //     let coinMarketCap = [];
-
-    //     axios 
-    //         .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=1`) 
-    //         .then((response) => {
-    //             console.log(response);
-    //             for(const info of response.data.prices){
-    //                 coinPriceValueTime.push(getDate(info[0]));
-    //                 coinPriceValue.push(info[1])
-    //             }
-
-    //             for( const info of response.data.market_caps){
-    //                 coinMarketCapTime.push(getDate(info[0]));
-    //                 coinMarketCap.push(info[1]);
-    //             }
- 
-    //                 setPriceChartData({
-    //                 labels :  coinPriceValueTime,
-    //                 datasets: [
-    //                     {
-    //                     label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
-    //                     data: coinPriceValue, 
-    //                     fill: false,
-    //                     borderColor: '#2196f3', // Add custom color border (Line)
-    //                     backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-    //                     borderWidth: 0.5
-    //                     }
-    //                 ]
-    //                 })  
- 
- 
-
-    //             setMarketCapChartData({
-    //                labels : coinMarketCapTime,
-    //                 datasets: [
-    //                     {
-    //                     label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
-    //                     data: coinMarketCap, 
-    //                     fill: false,
-    //                     borderColor: '#2196f3', // Add custom color border (Line)
-    //                     backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-    //                     borderWidth: 1 
-    //                     }
-    //                 ] 
-    //             })
-
-    //         })
-             
-
-            
-    //     }
-    
-    
 
     useEffect(() => {
         // PriceChart();
@@ -95,17 +38,19 @@ const Details = (props) => {
         let coinMarketCapTime = [];
         let coinMarketCap = [];
 
+
         axios 
-            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=1`) 
+            // .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=monthly`)
+            .get(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=${timeInterval}&interval=1m`) 
             .then((response) => {
                 console.log(response);
                 for(const info of response.data.prices){
-                    coinPriceValueTime.push(getDate(info[0]));
+                    coinPriceValueTime.push(convertTimestamp(info[0]));
                     coinPriceValue.push(info[1])
                 }
 
                 for( const info of response.data.market_caps){
-                    coinMarketCapTime.push(getDate(info[0]));
+                    coinMarketCapTime.push(convertTimestamp(info[0]));
                     coinMarketCap.push(info[1]);
                 }
  
@@ -117,7 +62,7 @@ const Details = (props) => {
                         data: coinPriceValue, 
                         fill: false,
                         borderColor: '#2196f3', // Add custom color border (Line)
-                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill) 
                         borderWidth: 0.5
                         }
                     ]
@@ -134,7 +79,7 @@ const Details = (props) => {
                         fill: false,
                         borderColor: '#2196f3', // Add custom color border (Line)
                         backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                        borderWidth: 1 
+                        borderWidth: 0.5 
                         }
                     ] 
                 })
@@ -149,14 +94,71 @@ const Details = (props) => {
         setTimeInterval(num);
         console.log(timeInterval);
     }
+ 
 
-    const changeChartType = (val) => {
-        if(val === 'Price' || val === ''){
-            setChartType(true);
-        }else{
-            setChartType(false);
-        }
-    }
+    const chartOptions = {
+            responsive: true,
+            title: { text: "THICCNESS SCALE", display: true },
+            scales: { 
+              y : {
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 10,
+                    beginAtZero: true,
+                    callback: function(label, index, labels) {
+                        return Math.abs(Number(label)) >= 1.0e+9
+                            ? `₹${(Math.abs(Number(label)) / 1.0e+9).toFixed(2)}B`
+                            // Six Zeroes for Millions 
+                            :  Math.abs(Number(label)) >= 1.0e+6
+
+                            ? `₹${(Math.abs(Number(label)) / 1.0e+6).toFixed(2)}M`
+                            // Three Zeroes for Thousands
+                            :  Math.abs(Number(label)) >= 1.0e+3
+
+                            ? "₹" + (Math.abs(Number(label)) / 1.0e+3).toFixed(2) + "K"
+
+                            : "₹" +  Math.abs(Number(label));
+
+                    } 
+                  },
+                   title: {
+                    display: true,
+                    text: 'Price',
+                    color: '#2196f3',
+                     font: { 
+                        size: 20,
+                        style: 'bold',
+                        lineHeight: 1.2,
+                    }
+                } 
+                , grid : {
+                    color : '#fff',
+                    lineWidth : 0.2
+                }
+              },
+              x : {
+                 ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 20,
+                    beginAtZero: true,
+                },
+                title : {
+                    display: true,
+                    text: `Time`,
+                    color: '#2196f3',
+                     font: { 
+                        size: 20,
+                        style: 'bold',
+                        lineHeight: 1.2,
+                    }
+                  } 
+                  , grid : {
+                    color : '#fff',
+                    lineWidth : 0.2
+                }
+              },
+            }
+          } 
 
     return(
         <div>
@@ -176,12 +178,8 @@ const Details = (props) => {
                     {Name.charAt(0).toUpperCase() + Name.slice(1)}
                 </span>
             </div> 
-            <div className = 'chart-container'>
-                <button type = 'button' className = {`button ${chartType ? "active" : ""}`} onClick = {() => changeChartType('Price')} >Price</button> {'  '}
-                <button type = 'button' className = {`button ${!chartType ? "active" : ""}` } onClick = {() => changeChartType('MarketCap')}  >Market Cap</button>
-            <div  className = 'chart-heading'>
-                { chartType ? 'Price' : 'Marktet_Cap' }
-                <br/>
+            <div className = 'chart-container'> 
+            <div  className = 'chart-heading'>  
                 <button type="button" className={ `button ${buttonType === 5 ? "active" : ""}`} onClick = {() => buttonClick(5)}>5</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 10 ? "active" : ""}`} onClick = {() => buttonClick(10)}>10</button>{'   '}
                 <button type="button" className={ `button ${buttonType === 20 ? "active" : ""}`} onClick = {() => buttonClick(20)}>20</button>{'   '}
@@ -217,53 +215,20 @@ const Details = (props) => {
                 } 
                 <span className = 'invterval-heading'>of days ago</span>
             </div>
-            <Line data = {chartType ? priceChartData : marketCapChartData}
-             options={{
-            responsive: true, 
-            scales: { 
-              y : {
-                  ticks: {
-                    autoSkip: true,
-                    maxTicksLimit: 10,
-                    beginAtZero: true,
-                    callback: function(label, index, labels) {
-                        return '₹'+label;
-                    } 
-                  },
-                  gridLines: {
-                    display: false
-                  },
-                  title : {
-                      display: true,
-                    text: 'Price',
-                    color: '#2196f3',
-                     font: { 
-                        size: 20,
-                        style: 'bold',
-                        lineHeight: 1.2,
-                    }
-                  }  
-                }
-              ,
-              x : {
-                  gridLines: {
-                    display: false
-                  },
-                  title : {
-                      display: true,
-                    text: `Time`,
-                    color: '#2196f3',
-                     font: { 
-                        size: 20,
-                        style: 'bold',
-                        lineHeight: 1.2,
-                    }
-                  } 
-                }
-              
-            }
-          }}
-            /> 
+            <div className = 'chart'>
+            <div>
+               <span style = {{ fontSize : '30px' , marginBottom : '20px' }}>
+                   Price
+                </span> 
+            <Line data = {priceChartData} options={chartOptions}/> 
+            </div>
+            <div>
+                <span style = {{ fontSize : '30px' , marginBottom : '20px' }}>
+                Market Capital
+                </span>
+            <Line data = {marketCapChartData} options = {chartOptions} />
+            </div>
+            </div>
             </div>
         </div>
     )
