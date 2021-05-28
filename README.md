@@ -34,7 +34,7 @@ This page trends for a crypto currency is graphical form. App also provides opti
 ![Details](images/Details.PNG)
 
 Full Page View of the Chart
-![FullPage](images/Full_Screen.png)
+![FullPage](images/Full_Screen.PNG)
 
 ## Technologies
 
