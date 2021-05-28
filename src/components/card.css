@@ -10,7 +10,7 @@
 }
 
 .cryptoCard:hover {
-  margin-top: 0px;
+  box-shadow: 0 3px 3px #fff;
 }
 
 .cryptoLogo {
@@ -32,6 +32,18 @@
 .cryptoName {
   font-weight: bold;
   font-size: 1.5rem;
+}
+
+.down-arrow {
+  font-size: 20px;
+  color: #fff;
+  background-color: #f00606;
+}
+
+.up-arrow {
+  font-size: 20px;
+  color: #fff;
+  background-color: #11d811;
 }
 
 .cryptoSign {

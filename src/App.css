@@ -94,19 +94,40 @@ input[type="text"]:focus {
   font-size: 15px;
 }
 
+.expand-button {
+  position: absolute;
+  top: 84%;
+  left: 73%;
+  border: 0;
+  border-radius: 50%;
+  transition: 0.2s all;
+}
+
+.expand-button:hover {
+  color: #555;
+}
+
+.expand-arrow {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.expand-arrow:hover {
+  color: #008cba;
+}
+
+.compress-button {
+  position: absolute;
+  top: 10px;
+}
+
 .chart {
-  /* width: 600px; */
-  border-radius: 20px;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-around; */
-  /* position: relative; */
+  position: relative;
 }
 
 .chart canvas {
   background-color: rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  padding: 10px;
+  padding: 20px;
   margin: auto;
   display: inline-block;
   width: 750px;
@@ -114,15 +135,36 @@ input[type="text"]:focus {
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
   margin-top: 10px;
-  /* padding: 0;
-  margin: auto;
-  display: block;
-  width: 800px; */
-  /* position: absolute; */
 }
 
-.chart canvas:hover {
-  margin-top: 0px;
+.full-size {
+  z-index: 1;
+  width: 90%;
+  height: 100%;
+  position: fixed;
+  top: 10px;
+  left: 5%;
+}
+
+.compress-button {
+  right: -10px;
+  top: 2px;
+  border-radius: 50%;
+  border: 0;
+  transition: 0.2s all;
+}
+
+.compress-button:hover {
+  color: #555;
+}
+
+.compress-arrow {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.compress-arrow:hover {
+  color: #008cba;
 }
 
 .button {
