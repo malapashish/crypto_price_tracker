@@ -30,7 +30,7 @@ const Details = (props) => {
 
 
         axios
-            .get(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=${timeInterval}&interval=1m`)
+            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=usd&days=${timeInterval}&interval=1m`)
             .then((response) => {
                 for (const info of response.data.prices) {
                     coinPriceValueTime.push(convertTimestamp(info[0]));
@@ -134,8 +134,8 @@ const Details = (props) => {
             x: {
                 ticks: {
                     autoSkip: true,
-                    maxTicksLimit: 20,
-                    beginAtZero: true,
+                    maxTicksLimit: 15,
+                    beginAtZero: true, 
                 },
                 title: {
                     display: true,
@@ -149,7 +149,8 @@ const Details = (props) => {
                 , grid: {
                     color: '#fff',
                     lineWidth: 0.2
-                }
+                },
+                min : 10
             },
         }
     }
@@ -219,8 +220,11 @@ const Details = (props) => {
                         data={chartType ? priceChartData : marketCapChartData}
                         options={chartOptions}
                         />
-                        <button onClick = {() => setToggleChart(!toggleChart)} className = 'expand-button' > 
+                        {/* <button onClick = {() => setToggleChart(!toggleChart)} className = 'expand-button' > 
                             <i class="fas fa-expand-arrows-alt expand-arrow"></i>
+                        </button> */}
+                        <button className={`button fullscreen-button`} onClick={() => setToggleChart(!toggleChart)}> 
+                            Full Screen
                         </button>
                     </div> 
                     :<div className = 'full-size'>

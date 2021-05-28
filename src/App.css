@@ -94,27 +94,22 @@ input[type="text"]:focus {
   font-size: 15px;
 }
 
-.expand-button {
-  position: absolute;
-  top: 84%;
-  left: 73%;
-  border: 0;
-  border-radius: 50%;
-  transition: 0.2s all;
+.fullscreen-button {
+  cursor: pointer;
 }
 
-.expand-button:hover {
-  color: #555;
+.fullscreen-button:hover {
+  background-color: #008cba;
 }
 
-.expand-arrow {
-  font-size: 20px;
-  padding: 10px;
+/* .expand-arrow {
+  font-size: 10px;
 }
 
 .expand-arrow:hover {
   color: #008cba;
-}
+  background-color: #008cba;
+} */
 
 .compress-button {
   position: absolute;
@@ -138,7 +133,7 @@ input[type="text"]:focus {
 }
 
 .full-size {
-  z-index: 1;
+  z-index: 10;
   width: 90%;
   height: 100%;
   position: fixed;
@@ -183,6 +178,10 @@ input[type="text"]:focus {
   background-color: rgba(0, 0, 0, 0.2);
   color: white;
   border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #008cba;
 }
 
 .active {
