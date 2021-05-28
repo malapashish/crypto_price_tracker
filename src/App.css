@@ -130,7 +130,6 @@ input[type="text"]:focus {
   border-radius: 20px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
-  margin-top: 10px;
 }
 
 .full-size {
