@@ -40,22 +40,20 @@ const Details = (props) => {
                     coinMarketCapTime.push(convertTimestamp(info[0]));
                     coinMarketCap.push(info[1]);
                 }
-
-                setTimeout(() => {
-                    setPriceChartData({
-                        labels: coinPriceValueTime,
-                        datasets: [
-                            {
-                                label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
-                                data: coinPriceValue,
-                                fill: false,
-                                borderColor: '#2196f3', // Add custom color border (Line)
-                                backgroundColor: '#2196f3', // Add custom color background (Points and Fill) 
-                                borderWidth: 0.5
-                            }
-                        ]
-                    })
-                }, 10)
+ 
+                setPriceChartData({
+                    labels: coinPriceValueTime,
+                    datasets: [
+                        {
+                            label: `${Name.charAt(0).toUpperCase() + Name.slice(1)}`,
+                            data: coinPriceValue,
+                            fill: false,
+                            borderColor: '#2196f3', // Add custom color border (Line)
+                            backgroundColor: '#2196f3', // Add custom color background (Points and Fill) 
+                            borderWidth: 0.5
+                        }
+                    ]
+                }) 
 
 
                 setMarketCapChartData({

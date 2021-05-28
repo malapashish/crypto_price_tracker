@@ -125,7 +125,8 @@ input[type="text"]:focus {
   padding: 20px;
   margin: auto;
   display: inline-block;
-  width: 750px;
+  /* width: 800px; */
+  width: 55%;
   border-radius: 20px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.5);
   transition: all 0.3s;
@@ -189,7 +190,7 @@ input[type="text"]:focus {
   color: white;
 }
 
-@media (max-width: 1300px) {
+/* @media (max-width: 1300px) {
   .chart canvas {
     width: 600px;
   }
@@ -198,6 +199,17 @@ input[type="text"]:focus {
 @media (max-width: 1100px) {
   .chart {
     flex-direction: column;
+  }
+} */
+@media (max-width: 830px) {
+  .chart canvas {
+    width: 650px;
+  }
+}
+
+@media (max-width: 680px) {
+  .chart canvas {
+    width: 500px;
   }
 }
 
@@ -217,12 +229,7 @@ input[type="text"]:focus {
     height: 38px;
   }
 
-  .chart {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .chart canvas {
-    width: 300px;
+    width: 340px;
   }
 }
