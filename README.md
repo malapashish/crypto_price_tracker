@@ -31,7 +31,10 @@ Details Page
 This page trends for a crypto currency is graphical form. App also provides option for user to select from price or volume graph. Also user can select how old data they want to see. The range is from 5 days to 10+ years. For drawing charts chart.js is used.
 <br/>
 <br/>
-![Favourite_Page](images/Details.PNG)
+![Details](images/Details.PNG)
+
+Full Page View of the Chart
+![FullPage](images/Full_Screen.png)
 
 ## Technologies
 
