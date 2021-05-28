@@ -26,12 +26,12 @@ const CryptoCard = ({name , price , symbol , marketCap , volume , image , priceC
             {priceChange < 0 ? (
                 <div className = 'downPriceContainer'>
                     {/* <i className = "fas fa-angle-down fa-2x"></i> */}
-                    <i class="fas fa-chevron-down down-arrow"></i>
+                    <i className="fas fa-chevron-down down-arrow"></i>
                     <p className = 'changedPrice'>{priceChange.toFixed(2)}%</p>
                 </div>
             ):(
                 <div className = 'upPriceContainer'>
-                    <i class="fas fa-chevron-up up-arrow"></i>
+                    <i className="fas fa-chevron-up up-arrow"></i>
                     <p className = 'changedPrice'>{priceChange.toFixed(2)}%</p>
                 </div>
             )}

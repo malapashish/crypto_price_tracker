@@ -8,7 +8,6 @@ const Details = (props) => {
 
     const [priceChartData, setPriceChartData] = useState({});
     const [marketCapChartData, setMarketCapChartData] = useState({});
-    const [buttonType, setButtonType] = useState(45);
     const [timeInterval, setTimeInterval] = useState(45);
     const [chartType, setChartType] = useState(true);
     const [ toggleChart , setToggleChart ] = useState(true);
@@ -79,9 +78,7 @@ const Details = (props) => {
     }, [timeInterval, Name])
 
     const buttonClick = (num) => {
-        setButtonType(num);
-        setTimeInterval(num);
-        console.log(timeInterval);
+        setTimeInterval(num); 
     }
 
     const changeChartType = (val) => {
@@ -101,20 +98,14 @@ const Details = (props) => {
                     autoSkip: true,
                     maxTicksLimit: 10,
                     beginAtZero: true,
-                    callback: function (label, index, labels) {
-                        return Math.abs(Number(label)) >= 1.0e+9
-                            ? `₹${(Math.abs(Number(label)) / 1.0e+9).toFixed(2)}B`
-                            // Six Zeroes for Millions 
-                            : Math.abs(Number(label)) >= 1.0e+6
-
-                                ? `₹${(Math.abs(Number(label)) / 1.0e+6).toFixed(2)}M`
-                                // Three Zeroes for Thousands
-                                : Math.abs(Number(label)) >= 1.0e+3
-
-                                    ? "₹" + (Math.abs(Number(label)) / 1.0e+3).toFixed(2) + "K"
-
-                                    : "₹" + Math.abs(Number(label));
-
+                    callback : function(label , index , labels) {
+                        if(label > 999 && label < 1000000){
+                        return `₹${(label/1000).toFixed(1)}K`; // convert to K for number from > 1000 < 1 million 
+                        }else if(label > 1000000){
+                            return `₹${(label/1000000).toFixed(1)}M`; // convert to M for number from > 1 million 
+                        }else if(label < 900){
+                            return `₹${label}`; // if value < 1000, nothing to do
+                        }
                     }
                 },
                 title: {
@@ -178,38 +169,38 @@ const Details = (props) => {
                     <button type='button' className={`button ${chartType ? "active" : ""}`} onClick={() => changeChartType('Price')} >Price</button> {'  '}
                     <button type='button' className={`button ${!chartType ? "active" : ""}`} onClick={() => changeChartType('MarketCap')}  >Market Cap</button>
                     <br />
-                    <button type="button" className={`button ${buttonType === 5 ? "active" : ""}`} onClick={() => buttonClick(5)}>5</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 10 ? "active" : ""}`} onClick={() => buttonClick(10)}>10</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 20 ? "active" : ""}`} onClick={() => buttonClick(20)}>20</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 50 ? "active" : ""}`} onClick={() => buttonClick(50)}>50</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 90 ? "active" : ""}`} onClick={() => buttonClick(90)}>90</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 365 ? "active" : ""}`} onClick={() => buttonClick(365)}>365</button>{'   '}
-                    <button type="button" className={`button ${buttonType === 11430 ? "active" : ""}`} onClick={() => buttonClick(11430)}>MAX</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 5 ? "active" : ""}`} onClick={() => buttonClick(5)}>5</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 10 ? "active" : ""}`} onClick={() => buttonClick(10)}>10</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 20 ? "active" : ""}`} onClick={() => buttonClick(20)}>20</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 50 ? "active" : ""}`} onClick={() => buttonClick(50)}>50</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 90 ? "active" : ""}`} onClick={() => buttonClick(90)}>90</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 365 ? "active" : ""}`} onClick={() => buttonClick(365)}>365</button>{'   '}
+                    <button type="button" className={`button ${timeInterval === 11430 ? "active" : ""}`} onClick={() => buttonClick(11430)}>MAX</button>{'   '}
                     <br />
                     <span className='invterval-heading'>Data up to  </span>
                     {
-                        buttonType === 45 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 45 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 5 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 5 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 10 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 10 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 20 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 20 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 50 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 50 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 90 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 90 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 365 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 365 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     {
-                        buttonType === 11430 && <span className='invterval-heading'> {buttonType} </span>
+                        timeInterval === 11430 && <span className='invterval-heading'> {timeInterval} </span>
                     }
                     <span className='invterval-heading'>of days ago</span>
                 </div> 
@@ -229,7 +220,7 @@ const Details = (props) => {
                     </div> 
                     :<div className = 'full-size'>
                         <button onClick = {() => setToggleChart(!toggleChart)} className = 'compress-button'>
-                            <i class="fas fa-compress-arrows-alt compress-arrow"></i>
+                            <i className="fas fa-compress-arrows-alt compress-arrow"></i>
                         </button>
                         <Line
                         data={chartType ? priceChartData : marketCapChartData}
