@@ -34,6 +34,13 @@
   font-size: 1.5rem;
 }
 
+.cryptoSign {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  padding-left: 8px;
+}
+
 .down-arrow {
   font-size: 20px;
   color: #fff;
@@ -44,13 +51,6 @@
   font-size: 20px;
   color: #fff;
   background-color: #11d811;
-}
-
-.cryptoSign {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 500;
-  padding-left: 8px;
 }
 
 .upPriceContainer {

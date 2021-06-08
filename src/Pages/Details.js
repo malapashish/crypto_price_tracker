@@ -29,7 +29,7 @@ const Details = (props) => {
 
 
         axios
-            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=usd&days=${timeInterval}&interval=1m`)
+            .get(`https://api.coingecko.com/api/v3/coins/${Name}/market_chart?vs_currency=inr&days=${timeInterval}&interval=1m`)
             .then((response) => {
                 for (const info of response.data.prices) {
                     coinPriceValueTime.push(convertTimestamp(info[0]));
@@ -89,7 +89,7 @@ const Details = (props) => {
 
     const chartOptions = {
         responsive: true,
-        title: { text: "THICCNESS SCALE", display: true },
+        title: { text: "Market Trends Chart", display: true },
         scales: {
             y: {
                 ticks: {
