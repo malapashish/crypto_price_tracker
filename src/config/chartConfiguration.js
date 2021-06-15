@@ -16,7 +16,7 @@ export const chartOptions = {
                             return `₹${(label/1000000000).toFixed(1)}B` // convert to B for number from > 1 billion
                         }
                         else if(label < 900){
-                            return `₹${label}`; // if value < 1000, nothing to do
+                            return `₹${label.toFixed(2)}`; // if value < 1000, nothing to do
                         }
                     }
                 },

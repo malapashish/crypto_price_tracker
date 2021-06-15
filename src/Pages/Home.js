@@ -1,9 +1,29 @@
-import React from 'react';
+import React ,{ useState , useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import CryptoCard from '../components/CryptoCard';
 
-const Home = ({inputCrypto , inputHandler , filterCrypto}) => {
+const Home = () => {
+
+    const [ inputCrypto , setInputCrypto ] = useState('');
+
+    const [ cryptoList , setCryptoList ] = useState([]);
+
+    const filterCrypto = cryptoList.filter((crypto) => crypto.name.toLowerCase().includes(inputCrypto.toLowerCase()) )
+
+    useEffect(() => {
+        axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false')
+            .then((response) => {
+                setCryptoList(response.data);
+                console.log(response.data);
+            })
+            .catch((e) => console.error(e))
+    },[])
+
+    const inputHandler = (e) => {
+        setInputCrypto(e.target.value);
+    }
 
     return(
         <div>
