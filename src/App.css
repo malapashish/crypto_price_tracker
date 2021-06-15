@@ -102,15 +102,6 @@ input[type="text"]:focus {
   background-color: #008cba;
 }
 
-/* .expand-arrow {
-  font-size: 10px;
-}
-
-.expand-arrow:hover {
-  color: #008cba;
-  background-color: #008cba;
-} */
-
 .compress-button {
   position: absolute;
   top: 10px;
@@ -186,6 +177,23 @@ input[type="text"]:focus {
 .active {
   background-color: #008cba;
   color: white;
+}
+
+.download-button {
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  right: -2px;
+  top: 45px;
+  transition: 0.5s all;
+}
+
+.download-icon {
+  font-size: 25px;
+}
+
+.download-icon:hover {
+  color: #008cba;
 }
 
 @media (max-width: 830px) {

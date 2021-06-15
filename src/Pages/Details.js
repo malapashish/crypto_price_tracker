@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Line } from 'react-chartjs-2';
 import axios from 'axios';
- 
+import { saveAs } from 'file-saver';
 
 const Details = (props) => {
 
@@ -41,6 +41,7 @@ const Details = (props) => {
                     coinMarketCap.push(info[1]);
                 }
  
+                if(chartType){
                 setPriceChartData({
                     labels: coinPriceValueTime,
                     datasets: [
@@ -54,8 +55,7 @@ const Details = (props) => {
                         }
                     ]
                 }) 
-
-
+                }else{
                 setMarketCapChartData({
                     labels: coinMarketCapTime,
                     datasets: [
@@ -69,11 +69,11 @@ const Details = (props) => {
                         }
                     ]
                 })
-
+                }
             })
 
-
-    }, [timeInterval, Name])
+ 
+    }, [timeInterval, Name , chartType])
 
     const buttonClick = (num) => {
         setTimeInterval(num); 
@@ -97,11 +97,14 @@ const Details = (props) => {
                     maxTicksLimit: 10,
                     beginAtZero: true,
                     callback : function(label , index , labels) {
-                        if(label > 999 && label < 1000000){
+                         if(label > 999 && label < 1000000){
                         return `₹${(label/1000).toFixed(1)}K`; // convert to K for number from > 1000 < 1 million 
-                        }else if(label > 1000000){
+                        }else if(label > 1000000 && label < 1000000000){
                             return `₹${(label/1000000).toFixed(1)}M`; // convert to M for number from > 1 million 
-                        }else if(label < 900){
+                        }else if(label > 1000000000){
+                            return `₹${(label/1000000000).toFixed(1)}B` // convert to M for number from > 1 billion
+                        }
+                        else if(label < 900){
                             return `₹${label}`; // if value < 1000, nothing to do
                         }
                     }
@@ -144,6 +147,13 @@ const Details = (props) => {
         }
     }
 
+    const downloadChart = () => {
+        const chart = document.getElementById('chart');
+        chart.toBlob(function (blob) {
+           saveAs(blob, "testing.png")
+       })
+    }
+
     return (
         <div>
             <div className='heading'>
@@ -162,6 +172,7 @@ const Details = (props) => {
                     {Name.charAt(0).toUpperCase() + Name.slice(1)}
                 </span>
             </div>
+            {/* <button onClick = {downloadChart}>Download</button> */}
             <div className='chart-container'>
                 <div className='chart-heading'>
                     <button type='button' className={`button ${chartType ? "active" : ""}`} onClick={() => changeChartType('Price')} >Price</button> {'  '}
@@ -208,10 +219,7 @@ const Details = (props) => {
                         <Line
                         data={chartType ? priceChartData : marketCapChartData}
                         options={chartOptions}
-                        />
-                        {/* <button onClick = {() => setToggleChart(!toggleChart)} className = 'expand-button' > 
-                            <i class="fas fa-expand-arrows-alt expand-arrow"></i>
-                        </button> */}
+                        /> 
                         <button className={`button fullscreen-button`} onClick={() => setToggleChart(!toggleChart)}> 
                             Full Screen
                         </button>
@@ -221,9 +229,11 @@ const Details = (props) => {
                             <i className="fas fa-compress-arrows-alt compress-arrow"></i>
                         </button>
                         <Line
+                        id = 'chart'
                         data={chartType ? priceChartData : marketCapChartData}
                         options={chartOptions}
                         />
+                        <button onClick = {downloadChart} className = 'download-button' ><i class="fas fa-file-download download-icon"></i></button>
                     </div>
                 }
             </div>
