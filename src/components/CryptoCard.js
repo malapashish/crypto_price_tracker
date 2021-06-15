@@ -24,8 +24,7 @@ const CryptoCard = ({name , price , symbol , marketCap , volume , image , priceC
                 Volume : {volume.toLocaleString()}
             </p>
             {priceChange < 0 ? (
-                <div className = 'downPriceContainer'>
-                    {/* <i className = "fas fa-angle-down fa-2x"></i> */}
+                <div className = 'downPriceContainer'> 
                     <i className="fas fa-chevron-down down-arrow"></i>
                     <p className = 'changedPrice'>{priceChange.toFixed(2)}%</p>
                 </div>
