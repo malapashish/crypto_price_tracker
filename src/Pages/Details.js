@@ -16,12 +16,16 @@ const Details = (props) => {
   const [chartType, setChartType] = useState(true);
   const [toggleChart, setToggleChart] = useState(true);
 
-  const Name = props.match.params.id;
-  const Image = props.location.state.crypto.image;
+  const { match:{params:{id : Name} = {}} = {} , location:{state:{crypto:{image : Image}}} } = props;
+
+  // const Name = props.match.params.id;
+  // const Image = props.location.state.crypto.image;
 
   function convertTimestamp(timestamp) {
     var d = new Date(timestamp);
-    return `${d.getDate()}/${d.getMonth()}/${d.getUTCFullYear()}`;
+    let newMonth = d.getMonth() < 9 ? `0${d.getMonth() + 1}` : `${d.getMonth + 1}`;
+    console.log(d);
+    return `${d.getUTCFullYear()+ '/' + newMonth + "/" +d.getDate()}`;
   }
 
   useEffect(() => {

@@ -38,6 +38,12 @@
 
 .logo {
   font-size: 30px;
+  padding: 10px;
+}
+
+.fas{
+  font-size: 25px;
+  padding: 5px 0px 0px 5px;
 }
 
 .inputField {
